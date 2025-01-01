@@ -5,8 +5,9 @@ function setup() {
     let width = 800;
     let height = 600;
     createCanvas(width, height);
+    let amountOfFood = 20;
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < amountOfFood; i++) {
         let x = random(width);
         let y = random(height);
         food.push(createVector(x, y));
@@ -24,13 +25,9 @@ function draw() {
         ellipse(food[i].x, food[i].y, 6, 6);
     }
 
-    fill(255, 0, 0);
-    noStroke()
+    vehicle.eat(food);
 
-    let target = createVector(mouseX, mouseY);
-    circle(target.x, target.y, 4);
-
-    vehicle.seek(target);
+    // vehicle.seek(target);
     vehicle.update();
     vehicle.show();
 }

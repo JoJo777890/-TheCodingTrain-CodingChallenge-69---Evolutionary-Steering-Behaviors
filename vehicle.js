@@ -8,7 +8,7 @@ class Vehicle {
         this.radius = 12;
     }
 
-    seek (target) {
+    seek(target) {
         // ------ Force [Version] ------
         // let force = p5.Vector.sub(target, this.position);
         // force.setMag(this.maxVelocity);
@@ -24,18 +24,18 @@ class Vehicle {
         this.applyForce(steering);
     }
 
-    applyForce (force) {
+    applyForce(force) {
         this.acceleration.add(force);
     }
 
-    update () {
+    update() {
         this.velocity.add(this.acceleration);
         this.velocity.limit(this.maxVelocity);
         this.position.add(this.velocity);
         this.acceleration.set(0, 0);
     }
 
-    show () {
+    show() {
         stroke(255);
         strokeWeight(1);
         fill(127);
@@ -45,4 +45,21 @@ class Vehicle {
         triangle(-this.radius, -this.radius / 2, -this.radius, this.radius / 2, this.radius, 0);
         pop();
     }
+
+    eat(list) {
+        let record = Infinity;
+        let closestIndex;
+
+        for (let i = 0; i < list.length; i++) {
+            let distance = this.position.dist(list[i]);
+
+            if (distance < record) {
+                record = distance;
+                closestIndex = i;
+            }
+        }
+
+        this.seek(list[closestIndex]);
+    }
+
 }
