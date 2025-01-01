@@ -3,12 +3,13 @@ class Vehicle {
         this.position = createVector(x, y);
         this.velocity = createVector(0, 0);
         this.acceleration = createVector(0, 0);
-        this.maxVelocity = 4;
-        this.maxForce = 0.25;
-        this.radius = 16;
+        this.maxVelocity = 3;
+        this.maxForce = 0.05;
+        this.radius = 12;
     }
 
     seek (target) {
+        // ------ Force [Version] ------
         // let force = p5.Vector.sub(target, this.position);
         // force.setMag(this.maxVelocity);
         // force.limit(this.maxForce)
@@ -36,8 +37,8 @@ class Vehicle {
 
     show () {
         stroke(255);
-        strokeWeight(2);
-        fill(255);
+        strokeWeight(1);
+        fill(127);
         push();
         translate(this.position.x, this.position.y);
         rotate(this.velocity.heading());
