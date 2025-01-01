@@ -1,4 +1,3 @@
-let qtree;
 let food = [];
 
 function setup() {
@@ -13,7 +12,7 @@ function setup() {
         food.push(createVector(x, y));
     }
 
-    vehicle = new Vehicle(100, 100);
+    creature = new Creature(100, 100);
 }
 
 function draw() {
@@ -25,9 +24,9 @@ function draw() {
         ellipse(food[i].x, food[i].y, 6, 6);
     }
 
-    vehicle.eat(food);
+    creature.eat(food);
 
     // vehicle.seek(target);
-    vehicle.update();
-    vehicle.show();
+    creature.update();
+    creature.show();
 }

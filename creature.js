@@ -1,4 +1,4 @@
-class Vehicle {
+class Creature {
     constructor(x, y) {
         this.position = createVector(x, y);
         this.velocity = createVector(0, 0);
