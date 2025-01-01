@@ -3,8 +3,8 @@ class Creature {
         this.position = createVector(x, y);
         this.velocity = createVector(0, 0);
         this.acceleration = createVector(0, 0);
-        this.maxVelocity = 3;
-        this.maxForce = 0.05;
+        this.maxVelocity = 2;
+        this.maxForce = 0.2;
         this.radius = 12;
     }
 
@@ -57,6 +57,10 @@ class Creature {
                 record = distance;
                 closestIndex = i;
             }
+        }
+
+        if (record < 5) {
+            food.splice(closestIndex, 1);
         }
 
         this.seek(list[closestIndex]);
