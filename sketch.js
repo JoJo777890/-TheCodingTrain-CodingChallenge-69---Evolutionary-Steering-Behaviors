@@ -38,6 +38,7 @@ function draw() {
     }
 
     creature.eat(food);
+    creature.eat(poison);
 
     // vehicle.seek(target);
     creature.update();

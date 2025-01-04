@@ -60,7 +60,7 @@ class Creature {
         }
 
         if (record < 5) {
-            food.splice(closestIndex, 1);
+            list.splice(closestIndex, 1);
         }
         else if (closestIndex !== -1) {
             this.seek(list[closestIndex]);
