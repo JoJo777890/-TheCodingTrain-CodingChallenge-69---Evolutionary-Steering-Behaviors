@@ -10,9 +10,14 @@ class Creature {
         this.health = 1;
 
         this.dna = [];
-        // this.dna = [1, 2];
+        // Food weight
         this.dna[0] = random(-1, 1.5);
+        // Poison weight
         this.dna[1] = random(-1, 1.5);
+        // Food perception
+        this.dna[2] = random(0, 100);
+        // Poison perception
+        this.dna[3] = random(0, 100);
     }
 
     boundaries (distanceOfBoundaries) {
@@ -47,8 +52,8 @@ class Creature {
     }
 
     behavior(good, bad) {
-        let steeringGood = this.eat(good, 0.2);
-        let steeringBad = this.eat(bad, -0.5);
+        let steeringGood = this.eat(good, 0.2, this.dna[2]);
+        let steeringBad = this.eat(bad, -0.5, this.dna[3]);
 
         steeringGood.mult((this.dna)[0]);
         steeringBad.mult(this.dna[1]);
@@ -101,6 +106,8 @@ class Creature {
         fill(creatureColor);
 
         push();
+
+        // Triangle shape
         translate(this.position.x, this.position.y);
         rotate(this.velocity.heading());
         triangle(-this.radius, -this.radius / 2, -this.radius, this.radius / 2, this.radius, 0);
@@ -123,15 +130,25 @@ class Creature {
         // }
 
         // stroke('lime');
+
+        noFill();
+
+        // Food Indicator
         stroke(0, 255, 0);
         line(0, 1, this.dna[0] * 50, 0);
+        // Food Perception
+        ellipse(0, 0, this.dna[2] * 3);
 
+        // Poison Indicator
         stroke(255, 0, 0);
         line(0, -1, this.dna[1] * 50, 0);
+        // Poison Perception
+        ellipse(0, 0, this.dna[3] * 3);
+
         pop();
     }
 
-    eat(list, nutrition) {
+    eat(list, nutrition, perception) {
         let record = Infinity;
         let closestIndex = -1;
 
@@ -144,7 +161,7 @@ class Creature {
             }
         }
 
-        if (record < 5) {
+        if (record < 5 && record < perception) {
             list.splice(closestIndex, 1);
             this.health += nutrition;
         }
