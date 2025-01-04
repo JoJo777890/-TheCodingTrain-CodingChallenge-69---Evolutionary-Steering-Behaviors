@@ -135,13 +135,15 @@ class Creature {
 
         // Food Indicator
         stroke(0, 255, 0);
-        line(0, 1, this.dna[0] * 50, 0);
+        strokeWeight(2);
+        line(0, 0, this.dna[0] * 50, 0);
         // Food Perception
         ellipse(0, 0, this.dna[2] * 3);
 
         // Poison Indicator
         stroke(255, 0, 0);
-        line(0, -1, this.dna[1] * 50, 0);
+        strokeWeight(1);
+        line(0, 0, this.dna[1] * 50, 0);
         // Poison Perception
         ellipse(0, 0, this.dna[3] * 3);
 
