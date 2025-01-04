@@ -37,8 +37,7 @@ function draw() {
         ellipse(poison[i].x, poison[i].y, 6, 6);
     }
 
-    creature.eat(food);
-    creature.eat(poison);
+    creature.behavior(food, poison);
 
     // vehicle.seek(target);
     creature.update();

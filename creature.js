@@ -6,6 +6,21 @@ class Creature {
         this.maxVelocity = 2;
         this.maxForce = 0.2;
         this.radius = 12;
+
+        this.dna = [1.075, -1];
+        // this.dna[0] = random(-5, 5);
+        // this.dna[1] = random(-5, 5);
+    }
+
+    behavior(good, bad) {
+        let steeringGood = this.eat(good);
+        let steeringBad = this.eat(bad);
+
+        steeringGood.mult((this.dna)[0]);
+        steeringBad.mult(this.dna[1]);
+
+        this.applyForce(steeringGood);
+        this.applyForce(steeringBad);
     }
 
     seek(target) {
@@ -21,7 +36,7 @@ class Creature {
         let steering = p5.Vector.sub(desired, this.velocity);
         steering.limit(this.maxForce);
 
-        this.applyForce(steering);
+        return steering;
     }
 
     applyForce(force) {
@@ -63,8 +78,10 @@ class Creature {
             list.splice(closestIndex, 1);
         }
         else if (closestIndex !== -1) {
-            this.seek(list[closestIndex]);
+            return this.seek(list[closestIndex]);
         }
+
+        return createVector(0, 0);
     }
 
 }
