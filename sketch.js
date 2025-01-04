@@ -1,11 +1,12 @@
 let food = [];
 let poison = [];
+let creatures = [];
 
 function setup() {
-    let width = 800;
-    let height = 600;
+    let width = 1200;
+    let height = 800;
     createCanvas(width, height);
-    let amountOfFood = 20;
+    let amountOfFood = 40;
 
     for (let i = 0; i < amountOfFood; i++) {
         let x = random(width);
@@ -19,7 +20,10 @@ function setup() {
         poison.push(createVector(x, y));
     }
 
-    creature = new Creature(100, 100);
+    for (let i = 0; i < 10; i++) {
+        creatures[i] = new Creature(random(width), random(height));
+    }
+    // creature = new Creature(100, 100);
 }
 
 function draw() {
@@ -37,9 +41,11 @@ function draw() {
         ellipse(poison[i].x, poison[i].y, 6, 6);
     }
 
-    creature.behavior(food, poison);
+    for (let i = 0; i < creatures.length; i++) {
+        creatures[i].behavior(food, poison);
 
-    // vehicle.seek(target);
-    creature.update();
-    creature.show();
+        // vehicle.seek(target);
+        creatures[i].update();
+        creatures[i].show();
+    }
 }
