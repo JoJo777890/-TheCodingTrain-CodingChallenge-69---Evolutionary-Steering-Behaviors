@@ -36,6 +36,11 @@ function draw() {
         let y = random(height);
         food.push(createVector(x, y));
     }
+    if (random(0, 1) < 0.02) {
+        let x = random(width);
+        let y = random(height);
+        poison.push(createVector(x, y));
+    }
 
     for (let i = 0; i < food.length; i++) {
         fill(0, 255, 0);
