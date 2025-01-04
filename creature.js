@@ -15,6 +15,37 @@ class Creature {
         this.dna[1] = random(-1, 1.5);
     }
 
+    boundaries (distanceOfBoundaries) {
+        let desired = null;
+
+        // If we want forces to go left or right, "this.position.y" is the same.
+        // Then use "this.maxVelocity" to move back within boundaries.
+        if (this.position.x < distanceOfBoundaries) {
+            desired = createVector(this.maxVelocity, this.velocity.y);
+        }
+        else if (this.position.x > width - distanceOfBoundaries) {
+            desired = createVector(-this.maxVelocity, this.velocity.y);
+        }
+
+        // If we want forces to go up or down, "this.position.x" is the same.
+        // Then use "this.maxVelocity" to move back within boundaries.
+        if (this.position.y < distanceOfBoundaries) {
+            desired = createVector(this.velocity.x, this.maxVelocity);
+        }
+        else if (this.position.y > height - distanceOfBoundaries) {
+            desired = createVector(this.velocity.x, -this.maxVelocity);
+        }
+
+        if (desired !== null) {
+            desired.setMag(this.maxVelocity);
+
+            let steering = p5.Vector.sub(desired, this.velocity);
+            steering.limit(this.maxForce);
+
+            this.applyForce(steering);
+        }
+    }
+
     behavior(good, bad) {
         let steeringGood = this.eat(good, 0.2);
         let steeringBad = this.eat(bad, -0.5);
@@ -25,6 +56,11 @@ class Creature {
         this.applyForce(steeringGood);
         this.applyForce(steeringBad);
     }
+
+    // **[(Purpose is to TEST)]** --> boundary forces
+    // tmpForce () {
+    //     this.applyForce(createVector(0.1, 0.01));
+    // }
 
     seek(target) {
         // ------ Force [Version] ------

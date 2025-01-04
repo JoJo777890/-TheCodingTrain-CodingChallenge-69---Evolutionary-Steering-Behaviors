@@ -2,6 +2,8 @@ let food = [];
 let poison = [];
 let creatures = [];
 
+let boundaryDistance = 50;
+
 function setup() {
     let width = 1100;
     let height = 700;
@@ -48,7 +50,11 @@ function draw() {
     }
 
     for (let i = creatures.length-1; i >= 0; i--) {
+        creatures[i].boundaries(boundaryDistance);
         creatures[i].behavior(food, poison);
+
+        // **[(Purpose is to TEST)]** --> boundary forces
+        // creatures[i].tmpForce();
 
         creatures[i].update();
         creatures[i].show();
