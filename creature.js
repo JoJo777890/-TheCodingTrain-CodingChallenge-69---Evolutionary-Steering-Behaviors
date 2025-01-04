@@ -48,7 +48,7 @@ class Creature {
 
     eat(list) {
         let record = Infinity;
-        let closestIndex;
+        let closestIndex = -1;
 
         for (let i = 0; i < list.length; i++) {
             let distance = this.position.dist(list[i]);
@@ -62,8 +62,9 @@ class Creature {
         if (record < 5) {
             food.splice(closestIndex, 1);
         }
-
-        this.seek(list[closestIndex]);
+        else if (closestIndex !== -1) {
+            this.seek(list[closestIndex]);
+        }
     }
 
 }
