@@ -5,7 +5,9 @@ class Creature {
         this.acceleration = createVector(0, 0);
         this.maxVelocity = 2;
         this.maxForce = 0.2;
-        this.radius = 12;
+        this.radius = 8;
+
+        this.health = 1;
 
         this.dna = [];
         // this.dna = [1, 2];
@@ -14,8 +16,8 @@ class Creature {
     }
 
     behavior(good, bad) {
-        let steeringGood = this.eat(good);
-        let steeringBad = this.eat(bad);
+        let steeringGood = this.eat(good, 0.2);
+        let steeringBad = this.eat(bad, -0.5);
 
         steeringGood.mult((this.dna)[0]);
         steeringBad.mult(this.dna[1]);
@@ -45,6 +47,8 @@ class Creature {
     }
 
     update() {
+        this.health -= 0.005;
+
         this.velocity.add(this.acceleration);
         this.velocity.limit(this.maxVelocity);
         this.position.add(this.velocity);
@@ -52,9 +56,13 @@ class Creature {
     }
 
     show() {
-        stroke(255);
+        let colorGreen = color(0, 255, 0);
+        let colorRed = color(255, 0, 0);
+        let creatureColor = lerpColor(colorRed, colorGreen, this.health);
+
+        stroke(creatureColor);
         strokeWeight(1);
-        fill(127);
+        fill(creatureColor);
 
         push();
         translate(this.position.x, this.position.y);
@@ -87,7 +95,7 @@ class Creature {
         pop();
     }
 
-    eat(list) {
+    eat(list, nutrition) {
         let record = Infinity;
         let closestIndex = -1;
 
@@ -102,6 +110,7 @@ class Creature {
 
         if (record < 5) {
             list.splice(closestIndex, 1);
+            this.health += nutrition;
         }
         else if (closestIndex !== -1) {
             return this.seek(list[closestIndex]);
@@ -110,4 +119,7 @@ class Creature {
         return createVector(0, 0);
     }
 
+    dead () {
+        return this.health < 0;
+    }
 }
