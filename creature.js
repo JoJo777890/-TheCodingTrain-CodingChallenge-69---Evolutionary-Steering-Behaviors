@@ -157,13 +157,13 @@ class Creature {
         for (let i = 0; i < list.length; i++) {
             let distance = this.position.dist(list[i]);
 
-            if (distance < record) {
+            if (distance < record && distance <= perception) {
                 record = distance;
                 closestIndex = i;
             }
         }
 
-        if (record < 5 && record < perception) {
+        if (record < 5) {
             list.splice(closestIndex, 1);
             this.health += nutrition;
         }
