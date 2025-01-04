@@ -61,29 +61,29 @@ class Creature {
         rotate(this.velocity.heading());
         triangle(-this.radius, -this.radius / 2, -this.radius, this.radius / 2, this.radius, 0);
 
-        let longerDNA;
-        let shorterDNA;
-        let longerColor;
-        let shorterColor;
-        if (this.dna[0] > this.dna[1]) {
-            longerDNA = this.dna[0];
-            shorterDNA = this.dna[1];
-            longerColor = 'lime';
-            shorterColor = 'red';
-        }
-        else {
-            longerDNA = this.dna[1];
-            shorterDNA = this.dna[0];
-            longerColor = 'red';
-            shorterColor = 'lime';
-        }
+        // let longerDNA;
+        // let shorterDNA;
+        // let longerColor;
+        // let shorterColor;
+        // if (this.dna[0] > this.dna[1]) {
+        //     longerDNA = this.dna[0];
+        //     shorterDNA = this.dna[1];
+        //     longerColor = 'lime';
+        //     shorterColor = 'red';
+        // }
+        // else {
+        //     longerDNA = this.dna[1];
+        //     shorterDNA = this.dna[0];
+        //     longerColor = 'red';
+        //     shorterColor = 'lime';
+        // }
 
         // stroke('lime');
-        stroke(longerColor);
-        line(0, 0, longerDNA * 50, 0);
+        stroke(0, 255, 0);
+        line(0, 1, this.dna[0] * 50, 0);
 
-        stroke(shorterColor);
-        line(0, 0, shorterDNA * 50, 0);
+        stroke(255, 0, 0);
+        line(0, -1, this.dna[1] * 50, 0);
         pop();
     }
 

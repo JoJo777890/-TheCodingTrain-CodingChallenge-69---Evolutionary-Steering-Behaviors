@@ -3,8 +3,8 @@ let poison = [];
 let creatures = [];
 
 function setup() {
-    let width = 1200;
-    let height = 800;
+    let width = 1100;
+    let height = 700;
     createCanvas(width, height);
     let amountOfFood = 40;
 
