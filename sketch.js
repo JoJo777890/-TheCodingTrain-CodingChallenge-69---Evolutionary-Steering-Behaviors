@@ -64,6 +64,11 @@ function draw() {
         creatures[i].update();
         creatures[i].show();
 
+        let newCreature = creatures[i].clone();
+        if (newCreature !== null) {
+            creatures.push(newCreature);
+        }
+
         if (creatures[i].dead()) {
             let x = creatures[i].position.x;
             let y = creatures[i].position.y;

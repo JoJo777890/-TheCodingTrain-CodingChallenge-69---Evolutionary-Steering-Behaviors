@@ -1,5 +1,5 @@
 class Creature {
-    constructor(x, y) {
+    constructor(x, y, dna) {
         this.position = createVector(x, y);
         this.velocity = createVector(0, 0);
         this.acceleration = createVector(0, 0);
@@ -9,15 +9,21 @@ class Creature {
 
         this.health = 1;
 
-        this.dna = [];
-        // Food weight
-        this.dna[0] = random(-1, 1.5);
-        // Poison weight
-        this.dna[1] = random(-1, 1.5);
-        // Food perception
-        this.dna[2] = random(0, 100);
-        // Poison perception
-        this.dna[3] = random(0, 100);
+        if (dna === undefined) {
+            this.dna = [];
+            // Food weight
+            this.dna[0] = random(-1, 1.5);
+            // Poison weight
+            this.dna[1] = random(-1, 1.5);
+            // Food perception
+            this.dna[2] = random(0, 100);
+            // Poison perception
+            this.dna[3] = random(0, 100);
+        }
+        else {
+            this.dna = dna;
+        }
+
     }
 
     boundaries (distanceOfBoundaries) {
@@ -172,6 +178,13 @@ class Creature {
         }
 
         return createVector(0, 0);
+    }
+
+    clone () {
+        if (random(1) < 0.001) {
+            return new Creature(this.position.x, this.position.y, this.dna);
+        }
+        return null;
     }
 
     dead () {
