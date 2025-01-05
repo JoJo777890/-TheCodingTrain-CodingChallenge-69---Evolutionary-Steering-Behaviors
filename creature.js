@@ -122,8 +122,9 @@ class Creature {
     }
 
     behavior(good, bad) {
+        // Eating nutrition
         let steeringGood = this.eat(good, 0.3, this.dna[2]);
-        let steeringBad = this.eat(bad, -0.75, this.dna[3]);
+        let steeringBad = this.eat(bad, -0.8, this.dna[3]);
 
         steeringGood.mult((this.dna)[0]);
         steeringBad.mult(this.dna[1]);
@@ -234,7 +235,8 @@ class Creature {
             }
         }
 
-        if (record < 5) {
+        // Eating radius
+        if (record < this.radius) {
             list.splice(closestIndex, 1);
             this.health += nutrition;
         }
