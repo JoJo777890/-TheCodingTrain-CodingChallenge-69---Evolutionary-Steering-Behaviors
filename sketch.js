@@ -65,6 +65,10 @@ function draw() {
         creatures[i].show();
 
         if (creatures[i].dead()) {
+            let x = creatures[i].position.x;
+            let y = creatures[i].position.y;
+            food.push(createVector(x, y));
+
             creatures.splice(i, 1);
         }
     }
