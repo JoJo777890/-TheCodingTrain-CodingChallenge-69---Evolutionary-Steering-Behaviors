@@ -4,8 +4,10 @@ let creatures = [];
 
 let boundaryDistance = 50;
 
+let debug;
+
 function setup() {
-    let width = 1100;
+    let width = 1225;
     let height = 700;
     createCanvas(width, height);
     let amountOfFood = 100;
@@ -23,6 +25,8 @@ function setup() {
         let y = random(height);
         poison.push(createVector(x, y));
     }
+
+    debug = createCheckbox();
 
     for (let i = 0; i < 10; i++) {
         creatures[i] = new Creature(random(width), random(height));
