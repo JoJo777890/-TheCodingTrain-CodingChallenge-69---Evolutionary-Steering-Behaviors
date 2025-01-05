@@ -9,21 +9,85 @@ class Creature {
 
         this.health = 1;
 
+        // w: weight
+        // p: perception
+        this.mutationRate = 0.075;
+        this.wMutationDiff = 0.1;
+        this.pMutationDiff = 10;
+        this.wLimits = [-1, 1.5];
+        this.pLimits = [0, 100];
+
         if (dna === undefined) {
             this.dna = [];
+
             // Food weight
-            this.dna[0] = random(-1, 1.5);
+            this.dna[0] = random(this.wLimits[0], this.wLimits[1]);
             // Poison weight
-            this.dna[1] = random(-1, 1.5);
+            this.dna[1] = random(this.wLimits[0], this.wLimits[1]);
             // Food perception
-            this.dna[2] = random(0, 100);
+            this.dna[2] = random(this.pLimits[0], this.pLimits[1]);
             // Poison perception
-            this.dna[3] = random(0, 100);
+            this.dna[3] = random(this.pLimits[0], this.pLimits[1]);
+        }
+        else if (random(1) <= this.mutationRate) {
+            this.dna = [];
+            // this.dna = dna;
+            for (let i = 0; i < 4; i++) {
+                this.dna[i] = dna[i];
+            }
+            // console.log(dna[0]);
+
+            // Mutation Values
+            this.wMutation = random(-this.wMutationDiff, this.wMutationDiff);
+            this.pMutation = random(-this.pMutationDiff, this.pMutationDiff);
+
+            // Food weight mutation
+            if (this.dna[0] + this.wMutation < this.wLimits[0]) {
+                this.dna[0] = this.wLimits[0];
+            }
+            else if (this.dna[0] + this.wMutation > this.wLimits[1]) {
+                this.dna[0] = this.wLimits[1];
+            }
+            else {
+                this.dna[0] += this.wMutation;
+            }
+
+            // Poison weight mutation
+            if (this.dna[1] + this.wMutation < this.wLimits[0]) {
+                this.dna[1] = this.wLimits[0];
+            }
+            else if (this.dna[1] + this.wMutation > this.wLimits[1]) {
+                this.dna[1] = this.wLimits[1];
+            }
+            else {
+                this.dna[1] += this.wMutation;
+            }
+
+            // Food perception mutation
+            if (this.dna[2] + this.pMutation < this.pLimits[0]) {
+                this.dna[2] = this.pLimits[0];
+            }
+            else if (this.dna[2] + this.pMutation > this.pLimits[1]) {
+                this.dna[2] = this.pLimits[1];
+            }
+            else {
+                this.dna[2] += this.pMutation;
+            }
+
+            // Poison perception mutation
+            if (this.dna[3] + this.pMutation < this.pLimits[0]) {
+                this.dna[3] = this.pLimits[0];
+            }
+            else if (this.dna[3] + this.pMutation > this.pLimits[1]) {
+                this.dna[3] = this.pLimits[1];
+            }
+            else {
+                this.dna[3] += this.pMutation;
+            }
         }
         else {
             this.dna = dna;
         }
-
     }
 
     boundaries (distanceOfBoundaries) {
@@ -58,8 +122,8 @@ class Creature {
     }
 
     behavior(good, bad) {
-        let steeringGood = this.eat(good, 0.2, this.dna[2]);
-        let steeringBad = this.eat(bad, -0.5, this.dna[3]);
+        let steeringGood = this.eat(good, 0.3, this.dna[2]);
+        let steeringBad = this.eat(bad, -0.75, this.dna[3]);
 
         steeringGood.mult((this.dna)[0]);
         steeringBad.mult(this.dna[1]);
@@ -160,7 +224,7 @@ class Creature {
         let record = Infinity;
         let closestIndex = -1;
 
-        for (let i = 0; i < list.length; i++) {
+        for (let i = list.length-1; i >= 0; i--) {
             let distance = this.position.dist(list[i]);
 
             if (distance < record && distance <= perception) {
@@ -184,7 +248,9 @@ class Creature {
         if (random(1) < 0.001) {
             return new Creature(this.position.x, this.position.y, this.dna);
         }
-        return null;
+        else {
+            return null;
+        }
     }
 
     dead () {

@@ -10,12 +10,14 @@ function setup() {
     createCanvas(width, height);
     let amountOfFood = 100;
 
+    // Initiate foods
     for (let i = 0; i < amountOfFood; i++) {
         let x = random(width);
         let y = random(height);
         food.push(createVector(x, y));
     }
 
+    // Initiate poisons
     for (let i = 0; i < amountOfFood; i++) {
         let x = random(width);
         let y = random(height);
@@ -31,23 +33,27 @@ function setup() {
 function draw() {
     background(51);
 
-    if (random(0, 1) < 0.05) {
+    // Spawn foods
+    if (random(0, 1) < 0.3) {
         let x = random(width);
         let y = random(height);
         food.push(createVector(x, y));
     }
-    if (random(0, 1) < 0.02) {
+    // Spawn poisons
+    if (random(0, 1) < 0.1) {
         let x = random(width);
         let y = random(height);
         poison.push(createVector(x, y));
     }
 
+    // Draw foods
     for (let i = 0; i < food.length; i++) {
         fill(0, 255, 0);
         noStroke();
         ellipse(food[i].x, food[i].y, 4, 4);
     }
 
+    // Draw poisons
     for (let i = 0; i < poison.length; i++) {
         fill(255, 0, 0);
         noStroke();
