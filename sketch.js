@@ -10,7 +10,7 @@ function setup() {
     let width = 1225;
     let height = 700;
     createCanvas(width, height);
-    let amountOfFood = 100;
+    let amountOfFood = 500;
 
     // Initiate foods
     for (let i = 0; i < amountOfFood; i++) {
@@ -26,7 +26,7 @@ function setup() {
         poison.push(createVector(x, y));
     }
 
-    debug = createCheckbox();
+    debug = createCheckbox('Debug', true);
 
     for (let i = 0; i < 10; i++) {
         creatures[i] = new Creature(random(width), random(height));
@@ -38,7 +38,7 @@ function draw() {
     background(51);
 
     // Spawn foods
-    if (random(0, 1) < 0.3) {
+    if (random(0, 1) < 0.5) {
         let x = random(width);
         let y = random(height);
         food.push(createVector(x, y));

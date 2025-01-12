@@ -11,7 +11,7 @@ class Creature {
 
         // w: weight
         // p: perception
-        this.mutationRate = 0.075;
+        this.mutationRate = 0.25;
         this.wMutationDiff = 0.1;
         this.pMutationDiff = 10;
         this.wLimits = [-1, 1.5];
@@ -123,7 +123,7 @@ class Creature {
 
     behavior(good, bad) {
         // Eating nutrition
-        let steeringGood = this.eat(good, 0.3, this.dna[2]);
+        let steeringGood = this.eat(good, 0.2, this.dna[2]);
         let steeringBad = this.eat(bad, -0.8, this.dna[3]);
 
         steeringGood.mult((this.dna)[0]);
@@ -159,7 +159,7 @@ class Creature {
     }
 
     update() {
-        this.health -= 0.005;
+        this.health -= 0.004;
 
         this.velocity.add(this.acceleration);
         this.velocity.limit(this.maxVelocity);
@@ -248,7 +248,8 @@ class Creature {
     }
 
     clone () {
-        if (random(1) < 0.001) {
+        if (this.health > 1) {
+            this.health -= 0.5;
             return new Creature(this.position.x, this.position.y, this.dna);
         }
         else {
