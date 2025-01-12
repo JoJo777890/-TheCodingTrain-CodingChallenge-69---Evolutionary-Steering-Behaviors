@@ -93,7 +93,7 @@ class Creature {
     boundaries (distanceOfBoundaries) {
         let desired = null;
 
-        // If we want forces to go left or right, "this.position.y" is the same.
+        // If we want forces to go left or right, "this.position.y" is the same (so we don't compare it).
         // Then use "this.maxVelocity" to move back within boundaries.
         if (this.position.x < distanceOfBoundaries) {
             desired = createVector(this.maxVelocity, this.velocity.y);
@@ -102,7 +102,7 @@ class Creature {
             desired = createVector(-this.maxVelocity, this.velocity.y);
         }
 
-        // If we want forces to go up or down, "this.position.x" is the same.
+        // If we want forces to go up or down, "this.position.x" is the same (so we don't compare it).
         // Then use "this.maxVelocity" to move back within boundaries.
         if (this.position.y < distanceOfBoundaries) {
             desired = createVector(this.velocity.x, this.maxVelocity);
